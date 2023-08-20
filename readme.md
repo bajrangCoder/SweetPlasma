@@ -13,8 +13,9 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
 
 ## TODO
 
-[] Add same app color schema to Acode terminal plugin, AcodeX
-[] Add the ability to set custom images as the background of the Acode app.
+- [ ] Add same app color schema to Acode terminal plugin, AcodeX
+
+- [ ] Add the ability to set custom images as the background of the Acode app.
 
 ## Bug Reports
 
