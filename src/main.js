@@ -110,11 +110,11 @@ class AcodePlugin {
 
     onAnimationChange() {
         const fileList = document.querySelector(".open-file-list");
-        const activeTile = fileList.querySelector(".tile.active");
+        //const activeTile = fileList.querySelector(".tile.active");
         if (this.plugSettings.fileTabAnimation) {
-            activeTile.style.animation = "changeColor 5s infinite alternate,glowingEffect 2s infinite alternate";
+            fileList.style.setProperty("--open-filelist-animation", "changeColor 5s infinite alternate,glowingEffect 2s infinite alternate");
         } else {
-            activeTile.style.animation = "";
+            fileList.style.setProperty("--open-filelist-animation", "")
         }
         
         const floatingIcon = document.getElementById('quicktools-toggler');
