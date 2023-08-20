@@ -7,7 +7,13 @@
   "author": "Ajit <me@ajitkumar.dev>",
   "license": "MIT",
   "dependencies": {
-    "html-tag-js": "^1.1.22"
+    "html-tag-js": "^1.1.22",
+    "postcss": "^8.4.27",
+    "postcss-loader": "^7.3.3",
+    "raw-loader": "^4.0.2",
+    "sass": "^1.65.1",
+    "sass-loader": "^13.3.2",
+    "autoprefixer": "^10.4.14"
   },
   "devDependencies": {
     "@babel/cli": "^7.18.10",

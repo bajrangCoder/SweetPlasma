@@ -1,0 +1,87 @@
+root {
+    --floating-btn-animation: "steam 20s linear infinite";
+}
+
+.open-file-list {
+    box-shadow: 0 3px 5px #1e1e2e;
+}
+
+.open-file-list li.tile.active {
+    border-top: 2px solid #9700be;
+    border-image: linear-gradient(45deg, #ec89cb, #9700be, #ec89cb, #9700be) 1;
+    border-image-slice: 1;
+    animation: changeColor 5s infinite alternate,glowingEffect 2s infinite alternate;
+}
+
+@keyframes changeColor {
+    0% {
+        border-image: linear-gradient(to right, #f60055, #9f6) 1;
+    }
+    50% {
+        border-image: linear-gradient(to right, #9700be, #ec89cb) 1;
+    }
+    100% {
+        border-image: linear-gradient(to right, #f60, #f96) 1;
+    }
+}
+@keyframes glowingEffect {
+    0%,
+    100% {
+        box-shadow: 0 0 10px #9700be;
+    }
+    50% {
+        box-shadow: 0 0 20px #9700be;
+    }
+}
+
+/*****
+Floating icon
+*****/
+span#quicktools-toggler {
+    .no_animation {
+        border-image: linear-gradient(45deg, #ec89cb, #9700be, #ec89cb, #9700be)
+            1;
+        border-image-slice: 1;
+        border-radius: 50%;
+    }
+    &:before {
+        background-color: var(--primary-color);
+        height: 100%;
+        width: 100%;
+        display: grid;
+        place-items: center;
+        border-radius: inherit;
+    }
+    &:after {
+        content: "";
+        position: absolute;
+        inset: -4px !important;
+        background: linear-gradient(
+            45deg,
+            #ec89cb,
+            blue,
+            #9700be,
+            #f60055,
+            #ec89cb,
+            blue,
+            #9700be,
+            #f60055
+        );
+        z-index: -1;
+        border-radius: inherit;
+        background-size: 400%;
+        filter: blur(10px);
+        animation: var(--floating-btn-animation);
+    }
+}
+@keyframes steam {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 400% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}
