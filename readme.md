@@ -4,6 +4,16 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
 
 > Developed by [Raunak Raj](https://github.com/bajrangCoder)
 
+<details>
+    <summary>Updates</summary>
+    <details>
+        <summary><code><strong>v1.0.1</strong></code></summary>
+        <p>Improved Editor theme</p>
+    </details>
+
+    
+</details>
+
 ## Features
 
 - **App Theme**
