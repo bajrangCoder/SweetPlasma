@@ -10,6 +10,10 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
         <summary><code><strong>v1.0.1</strong></code></summary>
         <p>Improved Editor theme</p>
     </details>
+    <details>
+        <summary><code><strong>v1.0.2</strong></code></summary>
+        <p>Added ability to add background image in your Editor and theme for acodex</p>
+    </details>
 
     
 </details>
@@ -20,12 +24,13 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
 - **Editor Theme**: A beautiful editor theme based on same app color schema.
 - **Sidebar Folder Icons**: Add beautiful candy folder icon to match app color schema.
 - **Fancy Animations**: Adds some smooth rgb animation on floating button and file tab bar
+- **Gausy Blury and Transparent Effect**: add transparent and blury effect inside your Editor, It will really give gorgeous look 😍
 
 ## TODO
 
-- [ ] Add same app color schema to Acode terminal plugin, AcodeX
+- [X] Add same app color schema to Acode terminal plugin, AcodeX
 
-- [ ] Add the ability to set custom images as the background of the Acode app.
+- [X] Add the ability to set custom images as the background of the Acode app.
 
 ## Bug Reports
 
@@ -54,6 +59,19 @@ We welcome contributions from the community to enhance and improve the SweetPlas
 - **Animations:** Enjoy the subtle animations that SweetPlasma brings to your Acode experience.
 
 **Note:** To fully experience the SweetPlasma folder icons, it's recommended to disable other folder icon packs.
+
+### How to add transparent effect or background image in your editor?
+
+- Open side bar > Select `SweetPlasma Logo`
+- and it will open wizard to add image in your editor
+- In `Image Url field`, you can paste any image url from internet or if you want image from your internal storage
+    - then click small `Folder icon` and select any image.
+    - Note: Press `enter` inside Image Url input box to save .
+- You can also customise blur value and Transparency using blur input box and transparency slider.
+- Note: Blur effect value should be in `px` for eg: `5px` and press enter to save the value
+- For removing image from editor background, press `Remove` button and restart the app
+
+Note: You can only use image from your `Internal Storage` by using folder icon, not from any external like: termux
 
 ### How to disable animation?
 

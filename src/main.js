@@ -5,6 +5,9 @@ import customStyle from "./customStyles.scss";
 const themes = acode.require("themes");
 const ThemeBuilder = acode.require("themeBuilder");
 const settings = acode.require("settings");
+const sidebarApps = acode.require("sidebarApps");
+const fileBrowser = acode.require("fileBrowser");
+const toInternalUrl = acode.require("toInternalUrl");
 const { editor } = editorManager;
 const editorThemeName = "sweet-plasma";
 
@@ -47,8 +50,18 @@ class AcodePlugin {
                 themeIcon: true,
                 fileTabAnimation: true,
                 floatingBtnAnimation: true,
+                imageUrl: "",
+                blurValue: "4px",
+                transparency: "0.4",
             };
             settings.update(false);
+        } else {
+            if (!this.plugSettings.imageUrl) {
+                this.plugSettings.imageUrl = "";
+                this.plugSettings.blurValue = "4px";
+                this.plugSettings.transparency = "0.4";
+                settings.update(false);
+            }
         }
     }
 
@@ -86,6 +99,116 @@ class AcodePlugin {
             sweetPlasma.buttonTextColor = "#FFFFFF";
             themes.add(sweetPlasma);
 
+            /***********************
+             * Sidebar
+             ***********************/
+            acode.addIcon("sweet-plasma", this.baseUrl + "icon.png");
+            sidebarApps.add(
+                "sweet-plasma",
+                "sweet-plasma-sidebar",
+                "SweetPlasma",
+                (app) => {
+                    const plasmaContainer = tag("div", {
+                        className: "plasma-container",
+                    });
+                    const heading = tag("h1", {
+                        textContent: "Add Image",
+                    });
+                    const inputBox = tag("div", {
+                        className: "input-box",
+                    });
+                    const inputField = tag("input", {
+                        type: "url",
+                        id: "image-url",
+                        placeholder: "Image url",
+                        value: this.plugSettings.imageUrl
+                            ? this.plugSettings.imageUrl
+                            : "",
+                    });
+                    inputField.addEventListener(
+                        "keypress",
+                        this.triggerEnterEvent.bind(this)
+                    );
+                    const folderBtn = tag("button", {
+                        id: "open-image-btn",
+                    });
+                    folderBtn.innerHTML = `<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" height="1.5em" width="1.5em"><path fill="currentColor" d="M7 40q-1.15 0-2.075-.925Q4 38.15 4 37V11q0-1.15.925-2.075Q5.85 8 7 8h12.8q.6 0 1.175.25.575.25.975.65l2.1 2.1H41q1.15 0 2.075.925Q44 12.85 44 14H10q-1.25 0-2.125.875T7 17v20l4.5-17.75q.25-1 1.1-1.625.85-.625 1.85-.625H43.1q1.45 0 2.4 1.15t.55 2.6l-4.4 16.95q-.3 1.2-1.1 1.75T38.5 40Z"/></svg>`;
+                    folderBtn.addEventListener(
+                        "click",
+                        this.triggerFolderBtnEvent.bind(this)
+                    );
+                    inputBox.append(inputField, folderBtn);
+                    const blurBox = tag("div", {
+                        className: "blur-box",
+                    });
+                    const blurLabel = tag("label", {
+                        textContent: "Blur",
+                        className: "blur-input-lbl",
+                    });
+                    const blurInputField = tag("input", {
+                        type: "text",
+                        id: "blur-value",
+                        value: this.plugSettings.blurValue
+                            ? this.plugSettings.blurValue
+                            : "4px",
+                        placeholder: "Blur value",
+                    });
+                    blurInputField.addEventListener(
+                        "keypress",
+                        this.changeBlurValue.bind(this)
+                    );
+                    blurBox.append(blurLabel, blurInputField);
+                    const transparencyBox = tag("div", {
+                        className: "transparency-box",
+                    });
+                    const transprancyLabel = tag("label", {
+                        textContent: "Transparency",
+                        className: "transparency-input-lbl",
+                    });
+                    const transparencyInputField = tag("input", {
+                        type: "range",
+                        id: "transparency-value",
+                        min: "0",
+                        max: "1",
+                        step: "0.1",
+                        value: this.plugSettings.transparency
+                            ? this.plugSettings.transparency
+                            : "0.4",
+                    });
+                    transparencyInputField.addEventListener(
+                        "input",
+                        this.changeTransparencyValue.bind(this)
+                    );
+                    const transparencyValueLbl = tag("span", {
+                        className: "transparency-value-lbl",
+                        textContent: this.plugSettings.transparency
+                            ? this.plugSettings.transparency
+                            : "0.4",
+                    });
+                    transparencyBox.append(
+                        transprancyLabel,
+                        transparencyInputField,
+                        transparencyValueLbl
+                    );
+                    const removeImgBtn = tag("button", {
+                        textContent: "Remove",
+                        id: "remove-image-btn",
+                    });
+                    removeImgBtn.addEventListener(
+                        "click",
+                        this.removeImg.bind(this)
+                    );
+                    plasmaContainer.append(
+                        heading,
+                        inputBox,
+                        blurBox,
+                        transparencyBox,
+                        removeImgBtn
+                    );
+                    app.append(plasmaContainer);
+                }
+            );
+
             ace.require("ace/ext/themelist").themes.push({
                 caption: editorThemeName
                     .split("-")
@@ -95,6 +218,38 @@ class AcodePlugin {
                 isDark: true,
             });
 
+            const acodeXController = acode.require("acodex");
+            if (acodeXController) {
+                const acodeXThemeNme = "SweetPlasma";
+                const colorSchema = {
+                    background: "#222235",
+                    foreground: "#ffffff",
+                    cursor: "#ffffff",
+                    cursorAccent: "#00000000",
+                    selectionBackground: "#ffffff26",
+                    black: "#222235",
+                    blue: "#f69154",
+                    brightBlack: "#3F3F54",
+                    brightBlue: "#f69154",
+                    brightCyan: "#00dded",
+                    brightGreen: "#06c993",
+                    brightMagenta: "#ec89cb",
+                    brightRed: "#f60055",
+                    brightWhite: "#ffffff",
+                    brightYellow: "#9700be",
+                    cyan: "#00dded",
+                    green: "#06c993",
+                    magenta: "#ec89cb",
+                    red: "#f60055",
+                    white: "#ffffff",
+                    yellow: "#9700be",
+                };
+                // Add theme
+                acodeXController.addTheme(acodeXThemeNme, colorSchema);
+                // Apply theme
+                //acodeXController.applyTheme(acodeXThemeNme);
+            }
+
             const currentTheme = settings.get("editorTheme");
             if (currentTheme === editorThemeName)
                 editor.setTheme("ace/theme/" + editorThemeName);
@@ -102,27 +257,127 @@ class AcodePlugin {
             if (!this.plugSettings.themeIcon) {
                 this.$iconsStyle.remove();
             }
-            this.onAnimationChange()
+            if (this.plugSettings.imageUrl) {
+                this.updateUiWithSettings();
+            }
+
+            this.onAnimationChange();
         } catch (error) {
             acode.alert("Warning", "Please restart acode");
         }
+    }
+
+    changeTransparencyValue() {
+        const transparencyValue = document.querySelector(
+            "#transparency-value"
+        ).value;
+        document.querySelector(".transparency-value-lbl").textContent =
+            transparencyValue;
+        this.plugSettings.transparency = transparencyValue;
+        settings.update();
+        this.updateUiWithSettings();
+    }
+
+    changeBlurValue(event) {
+        if (event.keyCode === 13) {
+            const blurValue = document.querySelector("#blur-value").value;
+            if (!blurValue) return;
+            this.plugSettings.blurValue = blurValue;
+            settings.update();
+            this.updateUiWithSettings();
+        }
+    }
+
+    triggerEnterEvent(event) {
+        if (event.keyCode === 13) {
+            const urlValue = document.querySelector("#image-url").value;
+            if (!urlValue) return;
+            this.plugSettings.imageUrl = urlValue;
+            settings.update();
+            this.updateUiWithSettings();
+        }
+    }
+
+    async triggerFolderBtnEvent() {
+        try {
+            const { url } = await fileBrowser("file", "Select Image", true);
+            if (!url) return;
+            const newUrl = await toInternalUrl(url);
+            document.querySelector("#image-url").value = newUrl;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    removeImg() {
+        this.plugSettings.imageUrl = "";
+        this.plugSettings.blurValue = "";
+        this.plugSettings.transparency = "";
+        settings.update();
+        acode.alert("Warning", "Restart App to see changes");
+    }
+
+    updateUiWithSettings() {
+        try {
+            document.querySelector(
+                ".ace_editor"
+            ).style.background = `url("${this.plugSettings.imageUrl}")`;
+            document.querySelector(".ace_editor").style.backgroundSize =
+                "cover";
+            document.querySelector(
+                ".ace_editor .ace_scroller"
+            ).style.background = this.transparentColor(
+                document.querySelector(".ace_editor .ace_content")
+            );
+            document.querySelector(
+                ".ace_editor .ace_scroller"
+            ).style.backdropFilter = `blur(${this.plugSettings.blurValue})`;
+            document.querySelector(".ace_editor .ace_gutter").style.background =
+                this.transparentColor(
+                    document.querySelector(".ace_editor .ace_gutter")
+                );
+            document.querySelector(
+                ".ace_editor .ace_gutter"
+            ).style.backdropFilter = `blur(${this.plugSettings.blurValue})`;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    transparentColor(element) {
+        let currentBackgroundColor =
+            window.getComputedStyle(element).backgroundColor;
+
+        // Extract the RGB values
+        var rgbValues = currentBackgroundColor.match(/\d+/g);
+
+        // Convert the RGB values to RGBA by adding 1 for the alpha (transparency) value
+        var currentAlpha = parseFloat(rgbValues[3]) || 1.0;
+        currentAlpha = this.plugSettings.transparency;
+        return `rgba(${rgbValues[0]}, ${rgbValues[1]}, ${rgbValues[2]}, ${currentAlpha})`;
     }
 
     onAnimationChange() {
         const fileList = document.querySelector(".open-file-list");
         //const activeTile = fileList.querySelector(".tile.active");
         if (this.plugSettings.fileTabAnimation) {
-            fileList.style.setProperty("--open-filelist-animation", "changeColor 5s infinite alternate,glowingEffect 2s infinite alternate");
+            fileList.style.setProperty(
+                "--open-filelist-animation",
+                "changeColor 5s infinite alternate,glowingEffect 2s infinite alternate"
+            );
         } else {
-            fileList.style.setProperty("--open-filelist-animation", "")
+            fileList.style.setProperty("--open-filelist-animation", "");
         }
-        
-        const floatingIcon = document.getElementById('quicktools-toggler');
+
+        const floatingIcon = document.getElementById("quicktools-toggler");
         if (this.plugSettings.floatingBtnAnimation) {
             floatingIcon.classList.remove("no_animation");
-            floatingIcon.style.setProperty("--floating-btn-animation", "steam 20s linear infinite")
+            floatingIcon.style.setProperty(
+                "--floating-btn-animation",
+                "steam 20s linear infinite"
+            );
         } else {
-            floatingIcon.style.setProperty("--floating-btn-animation", "")
+            floatingIcon.style.setProperty("--floating-btn-animation", "");
             floatingIcon.classList.add("no_animation");
         }
     }
@@ -174,6 +429,7 @@ class AcodePlugin {
     }
 
     async destroy() {
+        sidebarApps.remove("sweet-plasma-sidebar");
         settings.off("update", this.onThemeChange);
         this.$iconsStyle.remove();
         this.$customStyle.remove();
