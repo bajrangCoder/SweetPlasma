@@ -299,14 +299,33 @@ class AcodePlugin {
     }
 
     async triggerFolderBtnEvent() {
-        try {
-            const { url } = await fileBrowser("file", "Select Image", true);
-            if (!url) return;
-            const newUrl = await toInternalUrl(url);
-            document.querySelector("#image-url").value = newUrl;
-        } catch (error) {
-            console.log(error);
-        }
+        // Create a hidden input element of type 'file'
+        const imageInput = document.createElement("input");
+        imageInput.type = "file";
+        imageInput.accept = "image/*";
+        imageInput.style.display = "none";
+
+        // Add an event listener for when a file is selected
+        imageInput.addEventListener("change", function () {
+            const selectedFile = imageInput.files[0];
+            // Check if a file is selected
+            if (selectedFile) {
+                // Read the selected file as a Data URI
+                const reader = new FileReader();
+                
+                reader.onload = function (event) {
+                    const imageDataURI = event.target.result;
+                    document.querySelector("#image-url").value = imageDataURI;
+                };
+                reader.readAsDataURL(selectedFile);
+            }
+            // Remove the input element from the DOM
+            document.body.removeChild(imageInput);
+        });
+        // Append the input element to the document body
+        document.body.appendChild(imageInput);
+        // Trigger a click event on the hidden file input to open the file selection dialog
+        imageInput.click();
     }
 
     removeImg() {

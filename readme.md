@@ -4,6 +4,8 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
 
 > Developed by [Raunak Raj](https://github.com/bajrangCoder)
 
+<a href="https://www.buymeacoffee.com/bajrangCoder"><img alt="Buy Me A Coffee" width="40%" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"/></a>
+
 <details>
     <summary>Updates</summary>
     <details>
@@ -11,12 +13,12 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
         <p>Improved Editor theme</p>
     </details>
     <details>
-        <summary><code><strong>v1.0.2</strong></code></summary>
+        <summary><code><strong>v1.0.2 & v1.0.3</strong></code></summary>
         <p>Added ability to add background image in your Editor and theme for acodex</p>
+        <p>Fixed bugs</p>
     </details>
-
-    
 </details>
+
 
 ## Features
 
