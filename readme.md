@@ -9,13 +9,18 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
 <details>
     <summary>Updates</summary>
     <details>
-        <summary><code><strong>v1.0.1</strong></code></summary>
-        <p>Improved Editor theme</p>
+        <summary><code><strong>v1.0.4</strong></code></summary>
+        <p>fixed editor background image issue</p>
+        <p>added transparent and gauzy blur effect to different acode components such as popup boxes, context menu, command palette, etc</p>
     </details>
     <details>
         <summary><code><strong>v1.0.2 & v1.0.3</strong></code></summary>
         <p>Added ability to add background image in your Editor and theme for acodex</p>
         <p>Fixed bugs</p>
+    </details>
+    <details>
+        <summary><code><strong>v1.0.1</strong></code></summary>
+        <p>Improved Editor theme</p>
     </details>
 </details>
 
@@ -68,16 +73,23 @@ We welcome contributions from the community to enhance and improve the SweetPlas
 - and it will open wizard to add image in your editor
 - In `Image Url field`, you can paste any image url from internet or if you want image from your internal storage
     - then click small `Folder icon` and select any image.
-    - Note: Press `enter` inside Image Url input box to save .
 - You can also customise blur value and Transparency using blur input box and transparency slider.
 - Note: Blur effect value should be in `px` for eg: `5px` and press enter to save the value
 - For removing image from editor background, press `Remove` button and restart the app
 
-Note: You can only use image from your `Internal Storage` by using folder icon, not from any external like: termux
+### How to give different blur value to different acode components?
+
+- Open `settings.json` file (from Settings>Edit Settings.json file option)
+- and search for `bajrangcoder.sweet` inside the settings.json file and edit the values
 
 ### How to disable animation?
 
 To disable animation open SweetPlasma plugin page and on top right corner you will get a ⚙️ , Press it and it will open Settings page , From here you can disable.
+
+### How to disable Fancy Design?
+
+To disable fancy design, open SweetPlasma plugin page and on top right corner you will get a ⚙️ , Press it and it will open Settings page , From here you can uncheck `Fancy Acode` option.
+
 
 ## Warning
 
