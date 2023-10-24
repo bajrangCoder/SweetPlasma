@@ -392,13 +392,9 @@ class AcodePlugin {
             document.querySelector(
                 ".ace_editor .ace_scroller"
             ).style.backdropFilter = `blur(${this.plugSettings.blurValue})`;
-            document.querySelector(".ace_editor .ace_gutter").style.background =
-                this.transparentColor(
-                    document.querySelector(".ace_editor .ace_gutter")
-                );
-            document.querySelector(
-                ".ace_editor .ace_gutter"
-            ).style.backdropFilter = `blur(${this.plugSettings.blurValue})`;
+            const transparentGutterColor = this.transparentColor(document.querySelector(".ace_editor .ace_content"));
+            document.querySelector(".ace_editor .ace_gutter").style.background = transparentGutterColor;
+            document.querySelector(".ace_editor .ace_gutter").style.backdropFilter = `blur(${this.plugSettings.blurValue})`;
         } catch (error) {
             console.log(error);
         }
@@ -496,25 +492,25 @@ class AcodePlugin {
                 {
                     key: "themeIcon",
                     text: "Enable Theme Icon",
-                    checkbox: this.plugSettings.themeIcon,
+                    checkbox: !!this.plugSettings.themeIcon,
                     info: `If set to "true" means checked, then it will add a some icon to acode and that will match Sweet Plasma schema. If set to "false" means unchecked then theme icon will not be applied`
                 },
                 {
                     key: "fileTabAnimation",
                     text: "Enable File Tab animation",
-                    checkbox: this.plugSettings.fileTabAnimation,
+                    checkbox: !!this.plugSettings.fileTabAnimation,
                     info: `If set to "true" means checked, then it will add a beautiful glowing effect to it. If set to "false" means unchecked then animation will not be applied`
                 },
                 {
                     key: "floatingBtnAnimation",
                     text: "Enable Quicktools toggler anination",
-                    checkbox: this.plugSettings.floatingBtnAnimation,
+                    checkbox: !!this.plugSettings.floatingBtnAnimation,
                     info: `If set to "true" means checked, then it will add a beautiful glowing effect to it. If set to "false" means unchecked then animation will not be applied`
                 },
                 {
                     key: "fancyAcode",
                     text: "Enable Fancy Acode",
-                    checkbox: this.plugSettings.fancyAcode,
+                    checkbox: !!this.plugSettings.fancyAcode,
                     info: `If set to "true" means checked, then acode components will be transparent and with gauzy blurry effect. If set to "false" means unchecked then it will be normal default design`
                 },
                 {

@@ -9,9 +9,10 @@ A feature-rich theme plugin for Acode inspired by the aesthetics of Linux KDE Pl
 <details>
     <summary>Updates</summary>
     <details>
-        <summary><code><strong>v1.0.4</strong></code></summary>
+        <summary><code><strong>v1.0.4 & v1.0.5</strong></code></summary>
         <p>fixed editor background image issue</p>
         <p>added transparent and gauzy blur effect to different acode components such as popup boxes, context menu, command palette, etc</p>
+        <p>1.0.5 : fixed gutter bug</p>
     </details>
     <details>
         <summary><code><strong>v1.0.2 & v1.0.3</strong></code></summary>
